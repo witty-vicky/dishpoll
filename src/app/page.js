@@ -1,7 +1,7 @@
 "use client";
 
 import users from "./data/users.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useApp } from "./providers/app-provider";
 import { toast } from "sonner";
@@ -12,11 +12,18 @@ import { Label } from "@/components/ui/label";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { setCurrentUser } = useApp();
+  const { setCurrentUser, currentUser, isHydrated } = useApp();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!isHydrated) return;
+    if (currentUser) {
+      router.replace("/dashboard");
+    }
+  }, [currentUser, isHydrated, router]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -26,7 +33,7 @@ export default function LoginPage() {
     );
 
     if (!user) {
-      toast.error("Login failed", {
+      toast.error("Login Failed", {
         description: "Invalid username or password",
       });
       return;
@@ -37,13 +44,12 @@ export default function LoginPage() {
       username: user.username,
     });
 
-    toast.success("Login successful 🎉", {
-      description: `Welcome back, ${user.username}!`,
+    toast.success("Login Successful 🎉", {
+      description: `Welcome back, ${user.username.charAt(0).toUpperCase()}${user.username.slice(1)}!`,
     });
 
     router.push("/dashboard");
   }
-
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted">
@@ -77,9 +83,7 @@ export default function LoginPage() {
               />
             </div>
 
-            {error && (
-              <p className="text-sm text-destructive">{error}</p>
-            )}
+            {error && <p className="text-sm text-destructive">{error}</p>}
 
             <Button type="submit" className="w-full">
               Login
