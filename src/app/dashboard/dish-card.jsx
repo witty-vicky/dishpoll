@@ -61,7 +61,7 @@ export default function DishCard({ dish }) {
     }
 
     return (
-        <Card>
+        <Card className="pt-0">
             <Image
                 src={dish.image}
                 alt={dish.dishName}
@@ -70,7 +70,7 @@ export default function DishCard({ dish }) {
                 className="h-48 w-full object-cover rounded-t-md"
             />
 
-            <CardContent className="space-y-3 pt-4">
+            <CardContent className="space-y-3">
                 <div>
                     <h3 className="font-semibold">{dish.dishName}</h3>
                     <p className="text-sm text-muted-foreground">
