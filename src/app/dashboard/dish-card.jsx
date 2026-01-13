@@ -76,10 +76,10 @@ export default function DishCard({ dish }) {
                     <Button
                         type="button"
                         size="sm"
-                        variant={currentRank === "rank1" ? "default" : "outline"}
+                        variant="outline"
                         className={
                             currentRank === "rank1"
-                                ? "bg-amber-500 text-white hover:bg-amber-500/90"
+                                ? "bg-amber-500 text-white hover:bg-amber-500/90 border-amber-500/40"
                                 : ""
                         }
                         onClick={() => handleRankChange("rank1")}
@@ -94,10 +94,10 @@ export default function DishCard({ dish }) {
                     <Button
                         type="button"
                         size="sm"
-                        variant={currentRank === "rank2" ? "default" : "outline"}
+                        variant="outline"
                         className={
                             currentRank === "rank2"
-                                ? "bg-slate-600 text-white hover:bg-slate-600/90"
+                                ? "bg-slate-600 text-white hover:bg-slate-600/90 border-slate-500/40"
                                 : ""
                         }
                         onClick={() => handleRankChange("rank2")}
@@ -112,10 +112,10 @@ export default function DishCard({ dish }) {
                     <Button
                         type="button"
                         size="sm"
-                        variant={currentRank === "rank3" ? "default" : "outline"}
+                        variant="outline"
                         className={
                             currentRank === "rank3"
-                                ? "bg-orange-700 text-white hover:bg-orange-700/90"
+                                ? "bg-orange-700 text-white hover:bg-orange-700/90 border-orange-600/40"
                                 : ""
                         }
                         onClick={() => handleRankChange("rank3")}
@@ -130,7 +130,12 @@ export default function DishCard({ dish }) {
                     <Button
                         type="button"
                         size="sm"
-                        variant={currentRank === "none" ? "secondary" : "ghost"}
+                        variant="ghost"
+                        className={
+                            currentRank === "none"
+                                ? "opacity-0 pointer-events-none"
+                                : "opacity-100"
+                        }
                         onClick={() => handleRankChange("none")}
                         aria-label="Clear rank"
                         title="Clear rank"
