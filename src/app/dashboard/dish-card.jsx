@@ -1,14 +1,8 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import {
-    Select,
-    SelectTrigger,
-    SelectValue,
-    SelectContent,
-    SelectItem,
-} from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Award, Crown, Medal, X } from "lucide-react";
 import Image from "next/image";
 import { toast } from "sonner";
 import { useApp } from "../providers/app-provider";
@@ -73,26 +67,78 @@ export default function DishCard({ dish }) {
             <CardContent className="space-y-3">
                 <div>
                     <h3 className="font-semibold">{dish.dishName}</h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground line-clamp-3">
                         {dish.description}
                     </p>
                 </div>
 
-                {currentRank !== "none" && (
-                    <Badge>{RANK_LABELS[currentRank]}</Badge>
-                )}
+                <div className="flex flex-wrap items-center gap-2">
+                    <Button
+                        type="button"
+                        size="sm"
+                        variant={currentRank === "rank1" ? "default" : "outline"}
+                        className={
+                            currentRank === "rank1"
+                                ? "bg-amber-500 text-white hover:bg-amber-500/90"
+                                : ""
+                        }
+                        onClick={() => handleRankChange("rank1")}
+                        aria-label="Set Rank 1"
+                        title="Rank 1 (30 pts)"
+                    >
+                        <Crown />
+                        <span>Rank 1</span>
+                        <span className="text-xs opacity-80">(30pts)</span>
+                    </Button>
 
-                <Select value={currentRank} onValueChange={handleRankChange}>
-                    <SelectTrigger>
-                        <SelectValue placeholder="Select rank" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="none">No Rank</SelectItem>
-                        <SelectItem value="rank1">Rank 1</SelectItem>
-                        <SelectItem value="rank2">Rank 2</SelectItem>
-                        <SelectItem value="rank3">Rank 3</SelectItem>
-                    </SelectContent>
-                </Select>
+                    <Button
+                        type="button"
+                        size="sm"
+                        variant={currentRank === "rank2" ? "default" : "outline"}
+                        className={
+                            currentRank === "rank2"
+                                ? "bg-slate-600 text-white hover:bg-slate-600/90"
+                                : ""
+                        }
+                        onClick={() => handleRankChange("rank2")}
+                        aria-label="Set Rank 2"
+                        title="Rank 2 (20 pts)"
+                    >
+                        <Medal />
+                        <span>Rank 2</span>
+                        <span className="text-xs opacity-80">(20pts)</span>
+                    </Button>
+
+                    <Button
+                        type="button"
+                        size="sm"
+                        variant={currentRank === "rank3" ? "default" : "outline"}
+                        className={
+                            currentRank === "rank3"
+                                ? "bg-orange-700 text-white hover:bg-orange-700/90"
+                                : ""
+                        }
+                        onClick={() => handleRankChange("rank3")}
+                        aria-label="Set Rank 3"
+                        title="Rank 3 (10 pts)"
+                    >
+                        <Award />
+                        <span>Rank 3</span>
+                        <span className="text-xs opacity-80">(10pts)</span>
+                    </Button>
+
+                    <Button
+                        type="button"
+                        size="sm"
+                        variant={currentRank === "none" ? "secondary" : "ghost"}
+                        onClick={() => handleRankChange("none")}
+                        aria-label="Clear rank"
+                        title="Clear rank"
+                    >
+                        <X />
+                        <span>Clear</span>
+                    </Button>
+                </div>
             </CardContent>
         </Card>
     );
